@@ -98,10 +98,12 @@ def writecoords(imgfname, jsonfname):
     # Get position (x,y), width and height for every contour and show the contour on image
     for c in contours:
         x, y, w, h = cv2.boundingRect(c)
-        if (w<1000 and h<500):
+        if (w<2000 and h<500):
             #image = cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
             box.append([x,y,w,h])
-            
+    
+    #print(box)
+
     #plotting = plt.imshow(image,cmap='gray')
     #plt.show()
 
@@ -143,7 +145,7 @@ def writecoords(imgfname, jsonfname):
             countcol = countcol
 
     if len(row) == 0:
-        print("can't analyzer %s" % imgfname)
+        print("can't analyze %s" % imgfname)
         return
 
     #Retrieving the center of each column
@@ -173,13 +175,13 @@ def writecoords(imgfname, jsonfname):
 # W28949-I1KG10819 : 11 to 1700, except 1474, 922, 924
 
 def main():
-    #for i in range(49,2101):
-    #    basefname = "%0.8d" % i
-    #    writecoords("W28949-I1KG10818/%s.JPG" % basefname, "coords/%s.json" % basefname)
+    for i in range(49,2101):
+       basefname = "%0.8d" % i
+       writecoords("W28949-I1KG10818/%s.JPG" % basefname, "coords/W28949-I1KG10818/%s.json" % basefname)
     for i in range(11,1701):
-        if i in [922, 924, 1474]:
-            continue
         basefname = "%0.8d" % i
         writecoords("W28949-I1KG10819/%s.JPG" % basefname, "coords/W28949-I1KG10819/%s.json" % basefname)
 
+
 main()
+#writecoords("W28949-I1KG10818/00000049.JPG", "tests/coords.json")
